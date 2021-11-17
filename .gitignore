@@ -1,0 +1,4 @@
+.idea/
+requirements.txt
+venv/
+src/__pycache__/*
