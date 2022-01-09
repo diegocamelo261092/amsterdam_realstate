@@ -1,5 +1,4 @@
 .idea/
-requirements.txt
 venv/
 src/__pycache__/*
 config.py
