@@ -5,7 +5,7 @@ import config
 import pandas
 
 # Import Dictionary
-with open('src/pararius_parameters.pkl', 'rb') as pickle_file:
+with open('pararius_parameters.pkl', 'rb') as pickle_file:
     pararius_dictionary = pickle.load(pickle_file)
 
 # Extract Scrapped Data
