@@ -57,7 +57,7 @@ class SeleniumWebScraper(object):
         Description of the method
     """
 
-    def __init__(self, headless=True, full_loading=False, aws_options=False):
+    def __init__(self, full_loading=False, aws_options=True):
         """
         Parameters
         ----------
@@ -70,7 +70,6 @@ class SeleniumWebScraper(object):
         if aws_options:
             self.chrome_driver_web_options()
 
-        self.options.headless = headless
         self.options.add_argument("user-data-dir=selenium")
         if not full_loading:
             self.options.page_load_strategy = 'none'
@@ -91,8 +90,7 @@ class SeleniumWebScraper(object):
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--homedir=/tmp')
         self.options.add_argument('--disk-cache-dir=/tmp/cache-dir')
-        self.options.add_argument(
-            'user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36')
+        self.options.add_argument('user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36')
         self.options.binary_location = os.getcwd() + "/bin/headless-chromium"
 
     def fetch_urls(self, urls):
@@ -161,7 +159,7 @@ class RealEstateScraper(SeleniumWebScraper):
         self.indexes_urls = []
         self.max_page = 0
 
-        super().__init__(headless=False, full_loading=True)
+        super().__init__(full_loading=True)
 
     def index_max_pages(self, soup):
         variables = self.search_dict['max_page_find']
