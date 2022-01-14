@@ -2,3 +2,6 @@
 venv/
 src/__pycache__/*
 config.py
+../.DS_Store
+.DS_Store
+selenium/
