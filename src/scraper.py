@@ -57,7 +57,7 @@ class SeleniumWebScraper(object):
         Description of the method
     """
 
-    def __init__(self, headless=True, full_loading=False):
+    def __init__(self, headless=True, full_loading=False, aws_options=False):
         """
         Parameters
         ----------
@@ -67,11 +67,33 @@ class SeleniumWebScraper(object):
 
         self.driver_path = os.getcwd() + '/chromedriver'
         self.options = Options()
+        if aws_options:
+            self.chrome_driver_web_optiosn()
+
         self.options.headless = headless
         self.options.add_argument("user-data-dir=selenium")
         if not full_loading:
             self.options.page_load_strategy = 'none'
         self.driver = object
+
+    def chrome_driver_web_options(self):
+        self.options.add_argument('--headless')
+        self.options.add_argument('--no-sandbox')
+        self.options.add_argument('--disable-gpu')
+        self.options.add_argument('--window-size=1280x1696')
+        self.options.add_argument('--user-data-dir=/tmp/user-data')
+        self.options.add_argument('--hide-scrollbars')
+        self.options.add_argument('--enable-logging')
+        self.options.add_argument('--log-level=0')
+        self.options.add_argument('--v=99')
+        self.options.add_argument('--single-process')
+        self.options.add_argument('--data-path=/tmp/data-path')
+        self.options.add_argument('--ignore-certificate-errors')
+        self.options.add_argument('--homedir=/tmp')
+        self.options.add_argument('--disk-cache-dir=/tmp/cache-dir')
+        self.options.add_argument(
+            'user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36')
+        self.options.binary_location = os.getcwd() + "/bin/headless-chromium"
 
     def fetch_urls(self, urls):
         """
