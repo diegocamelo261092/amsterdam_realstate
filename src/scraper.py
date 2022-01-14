@@ -68,7 +68,7 @@ class SeleniumWebScraper(object):
         self.driver_path = os.getcwd() + '/chromedriver'
         self.options = Options()
         if aws_options:
-            self.chrome_driver_web_optiosn()
+            self.chrome_driver_web_options()
 
         self.options.headless = headless
         self.options.add_argument("user-data-dir=selenium")
