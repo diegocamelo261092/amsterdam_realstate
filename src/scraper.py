@@ -10,23 +10,23 @@ import urllib
 import os
 import pandas as pd
 
-# Custom Packages
-import data_cleaner
-
 # -------- FUNCTIONS DEFINITION -----------
 
 def soup_list(list):
     """
-    Description to be added...
-    :param: string field description...
+    This function is used to apply beautiful soup over a list of html text unparsed and returns the list of text parsed
+    :param:
+    - list, this is a list of unformated html text which requires formatting through beautifulsoup
     """
     return [bs4.BeautifulSoup(not_soup, features="html.parser") for not_soup in list]
 
 
-def multi_text_parser(data, functions):
+def multi_function_applier(data, functions):
     """
-    Description to be added...
-    :param: string field description...
+    This function allows the application of multiple functions past in as a list over the same data set
+    :param:
+    - data, is the data over which the function should be applied
+    - functions, is a list of variable functions which should be applied over the earlier mentioned data
     """
     if isinstance(functions, list):
         for f in functions:
@@ -41,9 +41,10 @@ def multi_text_parser(data, functions):
 class SeleniumWebScraper(object):
 
     """
-    Description of the class
-
-    ...
+    This class is used to handle multiple url requests and returns their respective html text.
+    Furthermore, the url requests can either be handled by the single tab requester function: fetch_urls
+    or instead through the more efficient multi tab requester, which allows the requesting of multiple urls over
+    several pages.
 
     Attributes
     ----------
@@ -145,8 +146,9 @@ class RealEstateScraper(SeleniumWebScraper):
         page = soup.find_all(variables[0], {variables[1]: variables[2]})
         page_index = [x.getText() for x in page]
         if len(variables) > 2:
-            page_index = multi_text_parser(page_index, variables[3])
+            page_index = multi_function_applier(page_index, variables[3])
         self.max_page = int(max(page_index))
+        self.max_page = 2
 
     def indexes_attributes(self):
         not_soup = self.fetch_urls([self.start_url])[0]

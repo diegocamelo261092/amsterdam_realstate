@@ -3,10 +3,10 @@ import scraper
 import sqlalchemy
 import config
 import pandas
+from pararius_parameters import pararius_dict
 
 # Import Dictionary
-with open('pararius_parameters.pkl', 'rb') as pickle_file:
-    pararius_dictionary = pickle.load(pickle_file)
+pararius_dictionary = pararius_dict()
 
 # Extract Scrapped Data
 results = scraper.RealEstateScrapingHandler(pararius_dictionary).handle_extraction()
