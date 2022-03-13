@@ -65,7 +65,8 @@ class SeleniumWebScraper(object):
 
         """
 
-        self.driver_path = os.getcwd() + '/chromedriver'
+        self.driver_path = os.getcwd() + "/bin/chromedriver"
+        print(self.driver_path)
         self.options = Options()
         if aws_options:
             self.chrome_driver_web_options()
@@ -76,22 +77,24 @@ class SeleniumWebScraper(object):
         self.driver = object
 
     def chrome_driver_web_options(self):
-        self.options.add_argument('--headless')
+        self.options.add_argument("--disable-dev-shm-usage");
+        # self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
-        self.options.add_argument('--disable-gpu')
-        self.options.add_argument('--window-size=1280x1696')
-        self.options.add_argument('--user-data-dir=/tmp/user-data')
-        self.options.add_argument('--hide-scrollbars')
-        self.options.add_argument('--enable-logging')
-        self.options.add_argument('--log-level=0')
-        self.options.add_argument('--v=99')
-        self.options.add_argument('--single-process')
-        self.options.add_argument('--data-path=/tmp/data-path')
-        self.options.add_argument('--ignore-certificate-errors')
-        self.options.add_argument('--homedir=/tmp')
-        self.options.add_argument('--disk-cache-dir=/tmp/cache-dir')
-        self.options.add_argument('user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36')
-        self.options.binary_location = os.getcwd() + "/bin/headless-chromium"
+        # self.options.add_argument('--disable-gpu')
+        # self.options.add_argument('--window-size=1280x1696')
+        # self.options.add_argument('--user-data-dir=/tmp/user-data')
+        # self.options.add_argument('--hide-scrollbars')
+        # self.options.add_argument('--enable-logging')
+        # self.options.add_argument('--log-level=0')
+        # self.options.add_argument('--v=99')
+        # self.options.add_argument('--single-process')
+        # self.options.add_argument('--data-path=/tmp/data-path')
+        # self.options.add_argument('--ignore-certificate-errors')
+        # self.options.add_argument('--homedir=/tmp')
+        # self.options.add_argument('--disk-cache-dir=/tmp/cache-dir')
+        # self.options.add_argument('user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36')
+        # self.options.binary_location = os.getcwd() + "/bin/headless-chromium"
+        print(os.getcwd() + "/bin/headless-chromium")
 
     def fetch_urls(self, urls):
         """
@@ -122,7 +125,7 @@ class SeleniumWebScraper(object):
         :param max_tabs:
         :return:
         """
-        self.driver = webdriver.Chrome(options=self.options, executable_path=self.driver_path)
+        self.driver = webdriver.Chrome(options=self.options)
         fetch_results = []
         loop_number = int(math.ceil(len(urls_requested) / max_tabs))
 
@@ -171,7 +174,9 @@ class RealEstateScraper(SeleniumWebScraper):
         self.max_page = 2
 
     def indexes_attributes(self):
+        print("try and get max page")
         not_soup = self.fetch_urls([self.start_url])[0]
+        print("got ")
         self.index_max_pages(bs4.BeautifulSoup(not_soup, features="html.parser"))
 
         for x in range(1, self.max_page):
@@ -242,7 +247,7 @@ class RealEstateScrapingHandler(RealEstateScraper):
         # self.extraction_path = ""
         self.extraction_listing_pandas = ""
         # self.extraction_pages_pandas = ""
-
+        print("completed initializing")
         super().__init__(variable_dict)
 
     def handle_extraction(self, batch_size=20, diego=True):
