@@ -1,5 +1,5 @@
-FROM lambci/lambda:python3.8
-MAINTAINER daniel@hubs.com
+FROM lambci/lambda:python3.6
+MAINTAINER tech@21buttons.com
 
 USER root
 
