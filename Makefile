@@ -4,9 +4,9 @@ docker-first:		## prinz versions of required tools
 	pip install -r requirements.txt
 	mkdir -p bin
 	mkdir -p lib
-	mkdir -p bin_test
+	chmod +x bin/chromedriver
+	chmod +x bin/headless-chromium
 	@make fetch-dependencies
-	@make docker-build
 	@make docker-build
 	@make docker-run
 
